@@ -120,6 +120,20 @@ class OfficeController extends Controller
         return $this->goHome();
     }
 
+    public function actionCreate()
+    {
+        $model = new User();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+
     /**
      * Displays contact page.
      *

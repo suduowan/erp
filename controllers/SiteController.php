@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\User;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\EntryForm;
@@ -93,13 +94,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+            echo '<pre>';
+            print_r($_POST);
+            echo '</pre>';
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+           // return $this->goHome();
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        $model  = new LoginForm();
+        $dbUser = new User();
+
+        if ($dbUser->load(Yii::$app->request->post()) && $dbUser->login()) {
+            echo '<pre>';
+            echo 1;
+            echo 2;
+            echo 3;
+            echo '</pre>';
+           // return $this->goBack();
         }
 
         $model->password = '';
