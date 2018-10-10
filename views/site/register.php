@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
-$this->title = Yii::$app->name.'-用户登录';
+$this->title = Yii::$app->name.'-用户注册';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>请填写下列信息以完成登录。</p>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
+        'id' => 'register-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
@@ -25,13 +25,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'name')->textInput(['autofocus' => true,'placeholder'=>'请输入昵称或手机号！','autocomplete'=>'off']) ?>
+        <?= $form->field($model, 'name')->textInput(['autofocus' => true,'placeholder'=>'请填写用户名！']) ?>
 
-        <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'请输入登录密码~'])->label('密码') ?>
+        <?= $form->field($model, 'phone')->textInput(['placeholder'=>'请填写手机号！']) ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+        <?= $form->field($model, 'sex')->radioList([
+            1 => '男', 
+            2 => '女'
+        ]); ?>
+        
+        <?= $form->field($model, 'note')->textarea(['rows'=>3,'placeholder'=>'请填写备注信息！'])->label('备注') ?>
+
+        <?= $form->field($model, 'password')->passwordInput()->label('登录密码') ?>
+        <?= $form->field($model, 'qpassword')->passwordInput()->label('确认密码') ?>
+
+
+
+        
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
@@ -42,6 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
-        还没有账号？<a href="<?=Url::to(['site/register', 'id' => 100]);?>">点击注册</a>吧！
+        已有账号？<a href="<?=Url::to(['site/login']);?>">点击登录</a>吧！
     </div>
 </div>

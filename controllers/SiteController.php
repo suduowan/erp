@@ -94,31 +94,38 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+
         if (!Yii::$app->user->isGuest) {
-           // return $this->goHome();
+           return $this->goHome();
         }
+        $model = new User();
 
-        $model  = new LoginForm();
-        $dbUser = new User();
-
-        if ($dbUser->load(Yii::$app->request->post()) && $dbUser->login()) {
-            echo '<pre>';
-            echo 1;
-            echo 2;
-            echo 3;
-            echo '</pre>';
-           // return $this->goBack();
+        if ($model->load(Yii::$app->request->post()) && $model->login() ) {
+           return $this->goBack();
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
     }
+    /**
+     * [actionRegister 用户注册]
+     * @return [type] [description]
+     */
+    public function actionRegister(){
+        $model = new User();
 
+        if ( $model->load( Yii::$app->request->post() ) && $model->register() ) {
+            return $this->goHome();
+        } else {
+            // validation failed: $errors is an array containing error messages
+            $errors = $model->errors;
+        }
+
+        return $this->render('register',[
+            'model' => $model
+        ]);
+    }
     /**
      * Logout action.
      *
