@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version: 5.5.53)
-# Date: 2018-10-08 19:47:22
+# Date: 2018-10-10 19:09:07
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -69,18 +69,18 @@ CREATE TABLE `oo_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `phone` bit(12) DEFAULT NULL,
+  `phone` varbinary(11) DEFAULT NULL,
   `sex` tinyint(3) NOT NULL DEFAULT '1' COMMENT '1:男2:女',
   `note` varchar(255) DEFAULT NULL COMMENT '备注',
   `reg_ip` varchar(20) DEFAULT NULL,
   `reg_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "oo_user"
 #
 
 /*!40000 ALTER TABLE `oo_user` DISABLE KEYS */;
-INSERT INTO `oo_user` VALUES (1,'lxy','123456',b'111111111111',1,NULL,NULL,NULL);
+INSERT INTO `oo_user` VALUES (4,'刘晓雨','7ca59860a4140d022ac44af429b41cf0',X'3135393530353331303335',1,'你好我是刘晓雨','127.0.0.1',1539160756);
 /*!40000 ALTER TABLE `oo_user` ENABLE KEYS */;
