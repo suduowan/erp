@@ -18,7 +18,7 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
-    public $name;
+    public $username;
     public $password;
     public $qpassword;
     public $rememberMe = true;
@@ -37,9 +37,9 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'phone', 'sex', 'password'], 'required','message'=>"{attribute}不可为空！"],
+            [['username', 'phone', 'sex', 'password'], 'required','message'=>"{attribute}不可为空！"],
             [['phone', 'reg_time'], 'integer','message'=>'{attribute}必须为数字！'],
-            [['name'], 'string', 'max' => 32],
+            [['username'], 'string', 'max' => 32],
             [['password'], 'string', 'max' => 64],
             // [['password'], 'validatePassword'],
             ['qpassword','compare','compareAttribute'=>'password','message'=>'两次密码不一致'],
@@ -53,9 +53,9 @@ class User extends \yii\db\ActiveRecord
      * @return [type] [description]
      */
     private function checkPassword(){
-        return Yii::$app->db->createCommand('SELECT * FROM '.self::tableName().' WHERE (name=:name OR phone=:phone) AND (password=:password)')
-           ->bindValue(':name', $this->name)
-           ->bindValue(':phone', $this->name)
+        return Yii::$app->db->createCommand('SELECT * FROM '.self::tableName().' WHERE (username=:username OR phone=:phone) AND (password=:password)')
+           ->bindValue(':username', $this->username)
+           ->bindValue(':phone', $this->username)
            ->bindValue(':password', md5($this->password))
            ->queryOne();
     }
@@ -63,7 +63,8 @@ class User extends \yii\db\ActiveRecord
         $user = $this->checkPassword();
 
         if ( $user ) {
-          return Yii::$app->user->login( new static($user) , $this->rememberMe ? 3600*24*30 : 0);
+            $user = json_decode(json_encode($user));
+            return Yii::$app->user->login( $user , $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;
     }
@@ -73,7 +74,7 @@ class User extends \yii\db\ActiveRecord
     public function register(){
         if ( $this->validate() ) {
             return Yii::$app->db->createCommand()->insert(self::tableName(),[
-                'name'     => $this->name,
+                'username'     => $this->username,
                 'password' => md5($this->password),
                 'phone'    => $this->phone,
                 'sex'      => $this->sex,
@@ -105,7 +106,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id'         => 'ID',
-            'name'       => '昵称',
+            'username'       => '昵称',
             'password'   => '密码',
             'phone'      => '手机',
             'sex'        => '性别',

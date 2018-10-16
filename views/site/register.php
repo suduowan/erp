@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'name')->textInput(['autofocus' => true,'placeholder'=>'请填写用户名！']) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'请填写用户名！']) ?>
 
         <?= $form->field($model, 'phone')->textInput(['placeholder'=>'请填写手机号！']) ?>
 

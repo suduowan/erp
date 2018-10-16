@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'name')->textInput(['autofocus' => true,'placeholder'=>'请输入昵称或手机号！','autocomplete'=>'off']) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true,'placeholder'=>'请输入昵称或手机号！','autocomplete'=>'off']) ?>
 
         <?= $form->field($model, 'password')->passwordInput(['placeholder'=>'请输入登录密码~'])->label('密码') ?>
 
